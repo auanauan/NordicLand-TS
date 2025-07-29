@@ -1,22 +1,25 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
-import { logos } from '../utils/svgData.js'
+import { logos } from '../utils/svgData'
 import small from '../assets/video/small.mp4'
-import { useProductStore } from '../utils/stores/productStore.js'
+import { useProductStore } from '../utils/stores/productStore'
+
+// กำหนด type ของ category เป็น string หรือถ้ารู้ชุดค่าที่แน่นอนสามารถทำเป็น union type ได้
+type Category = 'All' | 'Clothes' | 'Electronics' | 'Furniture' | 'Shoes' | 'Miscellaneous'
 
 const store = useProductStore()
-const search = ref('')
+const search = ref<string>('')
 
-function handleSearch() {
+function handleSearch(): void {
   store.setSearchKeyword(search.value)
 }
 
-function clearSearch() {
+function clearSearch(): void {
   search.value = ''
   store.setSearchKeyword('')
 }
 
-function filterCategory(category) {
+function filterCategory(category: Category): void {
   store.setCategory(category)
 }
 </script>
